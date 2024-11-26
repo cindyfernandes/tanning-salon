@@ -1,0 +1,26 @@
+/* Approve Clients Page Specific Styling */
+
+/* Main Section */
+#page-approve-clients {
+    min-height: calc(100vh - 160px);
+    padding: 20px 0;
+    background-color: #f9f9f9;
+}
+
+/* Table Styling */
+.approve-table-container .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.approve-table-container .table th {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+}
+
+.approve-table-container .table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
