@@ -45,7 +45,8 @@ public class LoginController {
         Client client = clientRepository.findByEmail(email);
         if (client != null && client.getPassword().equals(password)) {
             if (!client.isApproved()) {
-                model.addAttribute("error", "Your account is not approved yet.");
+                // If the client is not approved, show an error on the login page
+                model.addAttribute("error", "Your account is not approved yet.Please contact support.");
                 return "login";
             }
 

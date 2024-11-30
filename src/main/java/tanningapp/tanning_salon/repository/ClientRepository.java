@@ -10,4 +10,6 @@ import tanningapp.tanning_salon.model.Client;
 public interface ClientRepository extends JpaRepository<Client, Long> {
     Client findByEmail(String email);
     List<Client> findByApproved(boolean approved);
+
+    Client findByEmailAndPassword(String email, String password);
 }

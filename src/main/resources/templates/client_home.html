@@ -37,7 +37,7 @@
         <h1 class="sitename">IE</h1>
       </a>
 
-      <span class="welcome-message">Welcome, <span id="clientName">Client Name</span>!</span>
+      <span class="welcome-message">Welcome, <span id="clientName" th:text="${firstname}">Client Name</span>!</span>
     </div>
   </header>
 
@@ -52,7 +52,7 @@
 
         <div class="row justify-content-center text-center" data-aos="fade-up" data-aos-delay="100">
           <div class="col-xl-6 col-lg-8">
-            <h2> Welcome, <span id="clientName">Client Name</span>!</h2>
+            <h2> Welcome, <span id="clientName" th:text="${firstname}">Client Name</span>!</h2>
             <p>Ready to get your glow on? Access all your features below.</p>
           </div>
         </div>
@@ -61,19 +61,19 @@
           <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="400">
             <div class="icon-box">
               <i class="bi bi-calendar-check"></i>
-              <h3><a href="/schedule">Schedule Session</a></h3>
+              <h3><a th:href="@{/schedule}">Schedule Session</a></h3>
             </div>
           </div>
           <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="500">
             <div class="icon-box">
               <i class="bi bi-journal-text"></i>
-              <h3><a href="/history">View Session History</a></h3>
+              <h3><a th:href="@{/history}">View Session History</a></h3>
             </div>
           </div>
           <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="600">
             <div class="icon-box">
               <i class="bi bi-heart"></i>
-              <h3><a href="/skincare-tips">Skincare Tips</a></h3>
+              <h3><a th:href="@{/skincareTips}">Skincare Tips</a></h3>
             </div>
           </div>
         </div>

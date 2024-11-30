@@ -1,83 +1,85 @@
-// package tanningapp.tanning_salon.model;
+package tanningapp.tanning_salon.model;
 
-// import java.time.LocalDate;
-// import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-// import jakarta.persistence.Column;
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
-// @Entity // Marks this class as a JPA entity and maps it to a database table
-// public class SessionHistory {
+@Entity
+public class SessionHistory {
 
-//     @Id // Specifies the primary key of the entity
-//     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates the primary key value
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     @Column(nullable = false) // Maps this field to a non-nullable column for the client ID
-//     private Long clientId;
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false) // Relaciona ao cliente pelo ID
+    private Client client;
 
-//     @Column(nullable = false) // Maps this field to a non-nullable column for the session date
-//     private LocalDate sessionDate;
+    @Column(nullable = false)
+    private LocalDate sessionDate;
 
-//     @Column(nullable = false) // Maps this field to a non-nullable column for the session time
-//     private LocalTime sessionTime;
+    @Column(nullable = false)
+    private LocalTime sessionTime;
 
-//     @Column(nullable = false) // Maps this field to a non-nullable column for the tanning bed
-//     private String tanningBed;
+    @Column(nullable = false)
+    private String tanningBed;
 
-//     @Column(nullable = false) // Maps this field to a non-nullable column indicating if the session is confirmed
-//     private boolean confirmed;
+    @Column(nullable = false)
+    private boolean confirmed;
 
-//     // Getters and Setters for accessing and modifying the fields
+    // Getters e Setters
+    public Long getId() {
+        return id;
+    }
 
-//     public Long getId() {
-//         return id;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    public Client getClient() {
+        return client;
+    }
 
-//     public Long getClientId() {
-//         return clientId;
-//     }
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
-//     public void setClientId(Long clientId) {
-//         this.clientId = clientId;
-//     }
+    public LocalDate getSessionDate() {
+        return sessionDate;
+    }
 
-//     public LocalDate getSessionDate() {
-//         return sessionDate;
-//     }
+    public void setSessionDate(LocalDate sessionDate) {
+        this.sessionDate = sessionDate;
+    }
 
-//     public void setSessionDate(LocalDate sessionDate) {
-//         this.sessionDate = sessionDate;
-//     }
+    public LocalTime getSessionTime() {
+        return sessionTime;
+    }
 
-//     public LocalTime getSessionTime() {
-//         return sessionTime;
-//     }
+    public void setSessionTime(LocalTime sessionTime) {
+        this.sessionTime = sessionTime;
+    }
 
-//     public void setSessionTime(LocalTime sessionTime) {
-//         this.sessionTime = sessionTime;
-//     }
+    public String getTanningBed() {
+        return tanningBed;
+    }
 
-//     public String getTanningBed() {
-//         return tanningBed;
-//     }
+    public void setTanningBed(String tanningBed) {
+        this.tanningBed = tanningBed;
+    }
 
-//     public void setTanningBed(String tanningBed) {
-//         this.tanningBed = tanningBed;
-//     }
+    public boolean isConfirmed() {
+        return confirmed;
+    }
 
-//     public boolean isConfirmed() {
-//         return confirmed;
-//     }
-
-//     public void setConfirmed(boolean confirmed) {
-//         this.confirmed = confirmed;
-//     }
-// }
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+}
