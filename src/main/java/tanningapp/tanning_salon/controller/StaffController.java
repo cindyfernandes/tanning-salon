@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tanningapp.tanning_salon.model.Client;
 import tanningapp.tanning_salon.repository.ClientRepository;
+import tanningapp.tanning_salon.service.EmailService;
 
 @Controller
 public class StaffController {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private EmailService emailService; // Inject EmailService
 
     @GetMapping("/approveClients")
     public String showPendingClients(Model model) {
@@ -29,10 +33,17 @@ public class StaffController {
 
     @PostMapping("/approveClient")
     public String approveClient(@RequestParam Long clientId, Model model) {
+
+        // Fetch client from the database
         Client client = clientRepository.findById(clientId).orElseThrow(() -> new IllegalArgumentException("Invalid client ID"));
+
+        // Approve the client and save the changes to the database
         client.setApproved(true);
         clientRepository.save(client);
 
+        // Send an email to the client with approval information
+        emailService.sendApprovalEmail(client.getEmail(), client.getFirstname() + " " + client.getLastname());
+        
         model.addAttribute("successMessage", "Client approved successfully.");
         return "redirect:/approveClients";
     }

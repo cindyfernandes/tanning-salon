@@ -1,16 +1,16 @@
-// package tanningapp.tanning_salon.controller;
+package tanningapp.tanning_salon.controller;
 
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 
-// @Controller
-// public class TestController {
+@Controller
+public class TestController {
 
-//     @GetMapping("/test")
-//     public String testSuccess(Model model) {
-//         return "skincare_tips"; 
-//     }
-// }
+    @GetMapping("/test")
+    public String testSuccess(Model model) {
+        return "staff_home"; 
+    }
+}

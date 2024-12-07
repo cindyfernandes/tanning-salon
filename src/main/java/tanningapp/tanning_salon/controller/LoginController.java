@@ -52,6 +52,7 @@ public class LoginController {
 
             // Save client to session
             session.setAttribute("loggedInClient", client);
+            System.out.println("Client logged in: " + client.getEmail());
             
             // Redirect to client home page
             return "redirect:/clientHome";

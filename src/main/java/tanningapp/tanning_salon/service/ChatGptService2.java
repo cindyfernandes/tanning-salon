@@ -17,7 +17,7 @@ public class ChatGptService2 {
 
     public static void main(String[] args) throws IOException {
         SimpleOpenAI openAI = SimpleOpenAI.builder()
-        .apiKey(" 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")
+        .apiKey("")
         .build();
 
         String systemMessage = "You are an AI expert in skincare and tanning session.";

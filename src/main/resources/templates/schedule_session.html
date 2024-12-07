@@ -15,7 +15,9 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&family=Poppins:wght@300;600;900&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -37,7 +39,8 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a th:href="@{/}" class="active">Home</a></li>
-          <li class="dropdown"><a href="#"><span>My Account</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="#"><span>My Account</span> <i
+                class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a th:href="@{/schedule}">Schedule Session</a></li>
               <li><a th:href="@{/history}">Session History</a></li>
@@ -76,42 +79,43 @@
     <section id="schedule-session" class="section schedule-session">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="form-container">
-          <!-- Date Selector -->
-          <div class="form-group">
-            <label for="date">Choose a Date:</label>
-            <input type="date" id="date" class="form-control">
-          </div>
-          <!-- Time Selector -->
-          <div class="form-group">
-            <label for="time">Choose a Time (9 AM to 5 PM):</label>
-            <select id="time" class="form-control">
-              <option value="09:00">09:00 AM</option>
-              <option value="10:00">10:00 AM</option>
-              <option value="11:00">11:00 AM</option>
-              <option value="12:00">12:00 PM</option>
-              <option value="13:00">01:00 PM</option>
-              <option value="14:00">02:00 PM</option>
-              <option value="15:00">03:00 PM</option>
-              <option value="16:00">04:00 PM</option>
-              <option value="17:00">05:00 PM</option>
-            </select>
-          </div>
-          <!-- Tanning Bed Selector -->
-          <div class="form-group">
-            <label for="tanningBed">Choose a Tanning Bed:</label>
-            <select id="tanningBed" class="form-control">
-              <option value="Bed1">Tanning Bed 1</option>
-              <option value="Bed2">Tanning Bed 2</option>
-              <option value="Bed3">Tanning Bed 3</option>
-              <option value="Bed4">Tanning Bed 4</option>
-              <option value="Bed5">Tanning Bed 5</option>
-            </select>
-          </div>
-          <!-- Buttons -->
-          <div class="form-group mt-3">
-            <button id="checkAvailability" class="btn btn-primary">Check Availability</button>
-            <button id="confirmButton" class="btn btn-success">Confirm Booking</button>
-          </div>
+          <form th:action="@{/schedule/book}" method="post">
+            <!-- Date Selector -->
+            <div class="form-group">
+              <label for="date">Choose a Date:</label>
+              <input type="date" id="date" name="sessionDate" class="form-control" required>
+            </div>
+            <!-- Time Selector -->
+            <div class="form-group">
+              <label for="time">Choose a Time (9 AM to 5 PM):</label>
+              <select id="time" name="sessionTime" class="form-control" required>
+                <option value="09:00">09:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">01:00 PM</option>
+                <option value="14:00">02:00 PM</option>
+                <option value="15:00">03:00 PM</option>
+                <option value="16:00">04:00 PM</option>
+                <option value="17:00">05:00 PM</option>
+              </select>
+            </div>
+            <!-- Tanning Bed Selector -->
+            <div class="form-group">
+              <label for="tanningBed">Choose a Tanning Bed:</label>
+              <select id="tanningBed" name="tanningBed" class="form-control" required>
+                <option value="Bed1">Tanning Bed 1</option>
+                <option value="Bed2">Tanning Bed 2</option>
+                <option value="Bed3">Tanning Bed 3</option>
+                <option value="Bed4">Tanning Bed 4</option>
+                <option value="Bed5">Tanning Bed 5</option>
+              </select>
+            </div>
+            <!-- Submit Button -->
+            <div class="form-group mt-3">
+              <button type="submit" class="btn btn-success">Confirm Booking</button>
+            </div>
+          </form>
         </div>
       </div>
     </section>
@@ -137,11 +141,12 @@
     </div>
   </footer>
 
- <!-- Scroll Top -->
- <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
- <!-- Preloader -->
- <div id="preloader"></div>
+  <!-- Preloader -->
+  <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
   <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
