@@ -24,7 +24,6 @@ public class StaffController {
 
     @GetMapping("/approveClients")
     public String showPendingClients(Model model) {
-        
         // Fetch clients where approved is false
         List<Client> pendingClients = clientRepository.findByApproved(false);
         model.addAttribute("pendingClients", pendingClients);
@@ -33,7 +32,6 @@ public class StaffController {
 
     @PostMapping("/approveClient")
     public String approveClient(@RequestParam Long clientId, Model model) {
-
         // Fetch client from the database
         Client client = clientRepository.findById(clientId).orElseThrow(() -> new IllegalArgumentException("Invalid client ID"));
 
@@ -43,7 +41,7 @@ public class StaffController {
 
         // Send an email to the client with approval information
         emailService.sendApprovalEmail(client.getEmail(), client.getFirstname() + " " + client.getLastname());
-        
+
         model.addAttribute("successMessage", "Client approved successfully.");
         return "redirect:/approveClients";
     }
@@ -53,5 +51,13 @@ public class StaffController {
         clientRepository.deleteById(clientId);
         model.addAttribute("successMessage", "Client rejected successfully.");
         return "redirect:/approveClients";
+    }
+
+    // Method to handle search
+    @GetMapping("/searchClients")
+    public String searchClients(@RequestParam String query, Model model) {
+        List<Client> searchResults = clientRepository.findByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCaseOrEmailContainingIgnoreCase(query, query, query);
+        model.addAttribute("pendingClients", searchResults);
+        return "approve_clients";
     }
 }

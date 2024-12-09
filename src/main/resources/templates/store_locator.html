@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Locator</title>
+    <meta name="description" content="Find a store near you">
+    <meta name="keywords" content="store locator, google maps">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <link th:href="@{/css/location.css}" rel="stylesheet">
+
+</head>
+
+<body>
+    <header id="header" class="header d-flex align-items-center position-relative">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+            <a th:href="@{/}" class="logo d-flex align-items-center me-auto me-lg-0">
+                <h1 class="sitename">IE</h1>
+                <span>.</span>
+            </a>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a th:href="@{/}" class="active">Home</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="page-title" data-aos="fade">
+            <div class="heading">
+                <div class="container">
+                    <div class="row d-flex justify-content-center text-center">
+                        <div class="col-lg-8">
+                            <h1>Store Locator</h1>
+                            <p class="mb-0">Find your nearest store location. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="breadcrumbs">
+                <div class="container">
+                    <ol>
+                        <li><a th:href="@{/}">Home</a></li>
+                        <li class="current">Store Locator</li>
+                    </ol>
+                </div>
+            </nav>
+        </div>
+
+        <section id="service-details" class="service-details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="service-box">
+                            <h4>Store Locations</h4>
+                            <div class="services-list">
+                                <a href="#" class="active"><i class="bi bi-geo-alt"></i><span> Grafton Street</span></a>
+                                <a href="#"><i class="bi bi-geo-alt"></i><span> Wellington Quay</span></a>
+                                <a href="#"><i class="bi bi-geo-alt"></i><span> Sallynoggin</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="map-container">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="footer dark-background">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-4 footer-about">
+                        <a th:href="@{/}" class="logo d-flex align-items-center">
+                            <span class="sitename">IE</span>
+                        </a>
+                        <div class="footer-contact pt-3">
+                            <p>Grafton Street</p>
+                            <p>Dublin, Ireland</p>
+                            <p><strong>Phone:</strong> +1 5589 55488 55</p>
+                            <p><strong>Email:</strong> info@tanningsalonie.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key="></script>
+    <script>
+        function initMap() {
+            // Initialize the map
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 53.349805, lng: -6.26031 }, // Initial center point (Dublin)
+                zoom: 12, // Initial zoom level
+            });
+
+            // List of locations with coordinates and names
+            const locations = [
+                { name: "Grafton Street", lat: 53.342798, lng: -6.2597 },
+                { name: "Wellington Quay", lat: 53.3452, lng: -6.2662 },
+                { name: "Sallynoggin", lat: 53.2774, lng: -6.1372 },
+            ];
+
+            // Create markers for each location on the map
+            const markers = locations.map((location) => {
+                return new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng }, // Coordinates of the location
+                    map: map, // Attach the marker to the map
+                    title: location.name, // Tooltip title for the marker
+                });
+            });
+
+            // Add click events to buttons in the location list
+            const buttons = document.querySelectorAll(".services-list a"); // Select all location buttons
+            buttons.forEach((button, index) => {
+                button.addEventListener("click", (event) => {
+                    event.preventDefault(); // Prevent default link behavior
+                    const location = locations[index]; // Get the corresponding location
+                    map.setCenter({ lat: location.lat, lng: location.lng }); // Center the map on the selected location
+                    map.setZoom(15); // Zoom in to the selected location
+                });
+            });
+        }
+
+        // Load the map when the page finishes loading
+        window.onload = initMap;
+
+    </script>
+</body>
+
+</html>

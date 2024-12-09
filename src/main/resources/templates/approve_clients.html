@@ -5,15 +5,11 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Approve Client</title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -21,10 +17,7 @@
     <link th:href="@{/vendor/aos/aos.css}" rel="stylesheet">
     <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
     <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-
-    <!-- Main CSS File -->
     <link th:href="@{/css/main.css}" rel="stylesheet">
-
     <link th:href="@{/css/approve_clients.css}" rel="stylesheet">
 </head>
 
@@ -53,6 +46,16 @@
             </div>
         </div>
     </div><!-- End Page Title -->
+
+    <!-- Search Form -->
+    <div class="search-container container mb-4">
+        <form th:action="@{/searchClients}" method="get">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" placeholder="Search by name or email" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
 
     <!-- Success message display -->
     <div th:if="${successMessage != null}" class="alert alert-success">

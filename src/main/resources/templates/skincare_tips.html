@@ -55,54 +55,69 @@
   <main class="main">
     <!-- Page Title -->
     <div class="page-title" data-aos="fade">
-      <div class="heading">
-        <div class="container">
-          <div class="row d-flex justify-content-center text-center">
-            <div class="col-lg-8">
-              <h1>Skincare Tips</h1>
-              <p class="mb-0">Get personalized tips for tanning and skincare.</p>
+        <div class="heading">
+            <div class="container">
+                <div class="row d-flex justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h1>Skincare Tips</h1>
+                        <p class="mb-0">Get personalized tips for tanning and skincare.</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <nav class="breadcrumbs">
-        <div class="container">
-          <ol>
-            <li><a th:href="@{/}">Home</a></li>
-            <li class="current">Skincare Tips</li>
-          </ol>
-        </div>
-      </nav>
+        <nav class="breadcrumbs">
+            <div class="container">
+                <ol>
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li class="current">Skincare Tips</li>
+                </ol>
+            </div>
+        </nav>
     </div>
     <!-- End Page Title -->
 
     <!-- Skincare Tips Section -->
     <section id="skincare-tips" class="skincare-tips section">
         <div class="container">
-          <div class="row gy-5">
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="form-container">
-                <h3>Enter Your Skin Tone</h3>
-                <label for="skinTone">Choose your skin tone:</label>
-                <select id="skinTone" class="form-control">
-                  <option value="sensitive">Sensitive</option>
-                  <option value="fair">Fair</option>
-                  <option value="medium">Medium</option>
-                  <option value="dark">Dark</option>
-                </select>
-                <button class="btn btn-primary mt-3" onclick="getTanningAdvice()">Get Advice</button>
-              </div>
+            <div class="row gy-5">
+                <!-- Form Section -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="form-container">
+                        <h3>Enter Your Skin Tone</h3>
+                        <form th:action="@{/skincareTips/advice}" method="post">
+                            <label for="skinTone">Choose your skin tone:</label>
+                            <select name="skinTone" id="skinTone" class="form-control">
+                                <option value="Sensitive">Sensitive</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Dark">Dark</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary mt-3">Get Advice</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Response Section -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="response-box p-3 border rounded bg-light" th:if="${tip != null}">
+                        <h3>Skincare Tips for <span th:text="${tip.skinTone}"></span></h3>
+                        <h4>Before Tanning:</h4>
+                        <p th:text="${tip.preTanningTip}"></p>
+                        <h4>After Tanning:</h4>
+                        <p th:text="${tip.postTanningTip}"></p>
+                        <h4>Tanning Progress:</h4>
+                        <p th:text="${tip.tanningProgress}"></p>
+                    </div>
+                    <div class="response-box p-3 border rounded bg-light" th:if="${tip == null}">
+                        <h3>Skincare Tips</h3>
+                        <p>Your personalized skincare and tanning tips will appear here after selecting your skin tone.</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="response-box p-3 border rounded bg-light">
-                <h3>Skincare Tips</h3>
-                <p id="response">Your personalized skincare and tanning tips will appear here.</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
+    </section>
 </main>
+
 
 <footer id="footer" class="footer dark-background">
     <div class="footer-top">
@@ -143,29 +158,6 @@
 
   <script th:src="@{/js/main.js}"></script>
 
-  <!-- Custom Script for Skincare Tips -->
-<script>
-    function getTanningAdvice() {
-      const skinTone = document.getElementById('skinTone').value;
-  
-      // Send a POST request to the backend API
-      fetch('/skincareTips/advice', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `skinTone=${encodeURIComponent(skinTone)}`
-      })
-      .then(response => response.text())
-      .then(data => {
-        // Update the response box with the returned data
-        document.getElementById('response').textContent = data;
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('response').textContent = 'An error occurred while fetching advice. Please try again.';
-      });
-    }
   </script>
 
 </body>

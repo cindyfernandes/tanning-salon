@@ -1,28 +1,32 @@
-// package tanningapp.tanning_salon.controller;
+package tanningapp.tanning_salon.controller;
 
-// import org.springframework.stereotype.Controller;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
-// import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import tanningapp.tanning_salon.model.SkincareTip;
+import tanningapp.tanning_salon.repository.SkincareRepository;
 
-// @Controller
-// public class SkincareController {
+@Controller
+public class SkincareController {
 
-//     // @Autowired
-//     // private ChatGPTService chatGPTService;
+    @Autowired
+    private SkincareRepository skincareTipRepository;
 
-//     @GetMapping("/skincareTips")
-//     public String showSkincareTipsPage() {
-//         return "skincare_tips"; 
-//     }
+    // Método GET para carregar o template HTML
+    @GetMapping("/skincareTips")
+    public String showSkincarePage() {
+        return "skincare_tips"; // Nome do arquivo HTML em src/main/resources/templates (sem extensão)
+    }
 
-//     @PostMapping("/skincareTips/advice")
-//     @ResponseBody
-//     public String getSkincareTips(@RequestParam String skinTone) {
-//         String userMessage = String.format("What are the skincare tips for %s skin before and after artificial tanning in Ireland?", skinTone);
-//         return "www";
-//         //return chatGPTService.getChatGPTResponse(userMessage);
-//     }
-// }
+    // Método POST para processar a requisição e retornar os dados
+    @PostMapping("/skincareTips/advice")
+    public String getSkincareTips(@RequestParam String skinTone, Model model) {
+        SkincareTip tip = skincareTipRepository.findBySkinTone(skinTone);
+        model.addAttribute("tip", tip);
+        return "skincare_tips"; // Retorna o mesmo template com os dados incluídos
+    }
+}
