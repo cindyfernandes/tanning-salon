@@ -9,13 +9,16 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Staff {
 
+    //Unique identifier for the Staff entity.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Stores the username for the staff member.
     @NotBlank(message = "Username is required")
     private String username;
 
+    // Stores the password for the staff member.
     @NotBlank(message = "Password is required")
     private String password;
 

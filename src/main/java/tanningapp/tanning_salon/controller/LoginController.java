@@ -17,27 +17,30 @@ import tanningapp.tanning_salon.repository.StaffRepository;
 public class LoginController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientRepository clientRepository; // Repository for handling client data
 
     @Autowired
-    private StaffRepository staffRepository;
+    private StaffRepository staffRepository; // Repository for handling staff data
 
+    // Display the login page
     @GetMapping("/login")
     public String showLoginPage() {
         return "login";
     }
 
+    // Process login form submissions
     @PostMapping("/login")
     public String processLogin(
-            @RequestParam String email,
-            @RequestParam String password,
-            HttpSession session,
-            Model model) {
+            @RequestParam String email, // Email entered by the user
+            @RequestParam String password, // Password entered by the user
+            HttpSession session, // To manage session data
+            Model model // To pass data to the view
+    ) {
 
-        // Check if the user is an staff
+        // Check if the user is a staff member
         Staff staff = staffRepository.findByUsername(email);
         if (staff != null && staff.getPassword().equals(password)) {
-            // Redirect to approve clients page for staff
+            // Redirect staff to the approve clients page
             return "redirect:/approveClients";
         }
 
@@ -45,20 +48,20 @@ public class LoginController {
         Client client = clientRepository.findByEmail(email);
         if (client != null && client.getPassword().equals(password)) {
             if (!client.isApproved()) {
-                // If the client is not approved, show an error on the login page
-                model.addAttribute("error", "Your account is not approved yet.Please contact support.");
+                // If the client account is not approved, show an error message
+                model.addAttribute("error", "Your account is not approved yet. Please contact support.");
                 return "login";
             }
 
-            // Save client to session
+            // Store the logged-in client in the session
             session.setAttribute("loggedInClient", client);
             System.out.println("Client logged in: " + client.getEmail());
-            
-            // Redirect to client home page
+
+            // Redirect to the client home page
             return "redirect:/clientHome";
         }
 
-        // Invalid login
+        // If login credentials are invalid, show an error message
         model.addAttribute("error", "Invalid email or password");
         return "login";
     }

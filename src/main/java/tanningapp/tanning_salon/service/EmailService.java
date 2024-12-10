@@ -10,15 +10,15 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 
-
 @Service
 public class EmailService {
 
-    @Value("${sendgrid.api-key}")
+    @Value("${sendgrid.api-key}") // Injects the SendGrid API key from application properties.
     private String sendgridApiKey;
 
+    // Sends an approval email to the specified recipient.
     public void sendApprovalEmail(String recipientEmail, String clientName) {
-        // Corpo do método
+        // Constructs the email payload in JSON format.
         String emailPayload = "{\n" +
                 "  \"personalizations\": [\n" +
                 "    {\n" +
@@ -41,6 +41,7 @@ public class EmailService {
                 "  ]\n" +
                 "}";
 
+        // Configures SendGrid and sends the email.
         SendGrid sg = new SendGrid(sendgridApiKey);
         Request request = new Request();
         try {
@@ -50,12 +51,13 @@ public class EmailService {
             request.setBody(emailPayload);
             Response response = sg.api(request);
 
+            // Logs the response for debugging purposes.
             System.out.println("Status Code: " + response.getStatusCode());
             System.out.println("Response Body: " + response.getBody());
             System.out.println("Response Headers: " + response.getHeaders());
         } catch (IOException e) {
+            // Handles exceptions related to the SendGrid API call.
             e.printStackTrace();
         }
     }
 }
-

@@ -14,34 +14,40 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-@Entity
+@Entity // Marks this class as a JPA entity (mapped to a database table)
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates the ID value
+    private Long id; // Unique identifier
 
+    //Client's first name
     @NotBlank(message = "First name is required")
     private String firstname;
 
+    // Client's last name
     @NotBlank(message = "Last name is required")
     private String lastname;
 
+    // Client's date of birth
     @NotNull(message = "Date of birth is required")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
 
+    // Client's email address
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     @Column(unique = true)
     private String email;
 
+    // Client's password
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
+    // Indicates if the client is approved (default: false)
     @Column(nullable = false)
-    private boolean approved = false; // Default to false
+    private boolean approved = false; 
 
     // Getters e Setters
     public Long getId() {

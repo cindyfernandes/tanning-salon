@@ -15,17 +15,21 @@ public class SkincareTip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Auto-increment primary key
 
+    // The type of skin
     @Column(name = "skin_tone", nullable = false)
-    private String skinTone; // The type of skin
+    private String skinTone; 
 
+    // Tips before tanning
     @Column(name = "pre_tanning_tip", nullable = false, columnDefinition = "TEXT")
-    private String preTanningTip; // Tips before tanning
+    private String preTanningTip; 
 
+    // Tips after tanning
     @Column(name = "post_tanning_tip", nullable = false, columnDefinition = "TEXT")
-    private String postTanningTip; // Tips after tanning
+    private String postTanningTip; 
 
+    // Guidelines for tanning progress
     @Column(name = "tanning_progress", nullable = false, columnDefinition = "TEXT")
-    private String tanningProgress; // Guidelines for tanning progress
+    private String tanningProgress; 
 
     // Getters and Setters
     public Long getId() {

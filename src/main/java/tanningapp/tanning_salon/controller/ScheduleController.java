@@ -22,15 +22,14 @@ public class ScheduleController {
     // Serve the schedule session page
     @GetMapping
     public String showSchedulePage() {
-        return "schedule_session"; 
+        return "schedule_session";
     }
 
     // Handles booking a session
     @PostMapping("/book")
     public String bookSession(
-        @ModelAttribute SessionHistory session,
-        HttpSession httpSession
-    ) {
+            @ModelAttribute SessionHistory session,
+            HttpSession httpSession) {
         // Retrieve the logged-in client from the session
         Client loggedInClient = (Client) httpSession.getAttribute("loggedInClient");
 

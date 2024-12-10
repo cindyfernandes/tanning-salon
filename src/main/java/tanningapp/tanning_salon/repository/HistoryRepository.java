@@ -11,6 +11,6 @@ import tanningapp.tanning_salon.model.SessionHistory;
 @Repository
 public interface HistoryRepository extends JpaRepository<SessionHistory, Long> {
 
-    // Find sessions by client
+    // Retrieves session history for a specific client.
     List<SessionHistory> findByClient(Client client);
 }

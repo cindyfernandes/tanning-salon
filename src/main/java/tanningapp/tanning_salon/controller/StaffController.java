@@ -17,47 +17,65 @@ import tanningapp.tanning_salon.service.EmailService;
 public class StaffController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientRepository clientRepository; // Repository for managing client data
 
     @Autowired
-    private EmailService emailService; // Inject EmailService
+    private EmailService emailService; // Service for sending emails
 
+    // GET method to show clients pending approval
     @GetMapping("/approveClients")
     public String showPendingClients(Model model) {
-        // Fetch clients where approved is false
+        // List clients whose approval status is false
         List<Client> pendingClients = clientRepository.findByApproved(false);
-        model.addAttribute("pendingClients", pendingClients);
-        return "approve_clients";
+        model.addAttribute("pendingClients", pendingClients); // Add pending clients to the model
+        return "approve_clients"; // Render the approval page
     }
 
+    // POST method to approve a client
     @PostMapping("/approveClient")
-    public String approveClient(@RequestParam Long clientId, Model model) {
-        // Fetch client from the database
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new IllegalArgumentException("Invalid client ID"));
+    public String approveClient(
+        @RequestParam Long clientId, // Client ID from the request
+        Model model // Model to pass messages to the view
+    ) {
+        // Find client from the database
+        Client client = clientRepository.findById(clientId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid client ID"));
 
-        // Approve the client and save the changes to the database
+        // Approve the client and save changes
         client.setApproved(true);
         clientRepository.save(client);
 
-        // Send an email to the client with approval information
+        // Send an approval email to the client
         emailService.sendApprovalEmail(client.getEmail(), client.getFirstname() + " " + client.getLastname());
 
-        model.addAttribute("successMessage", "Client approved successfully.");
-        return "redirect:/approveClients";
+        model.addAttribute("successMessage", "Client approved successfully."); // Add success message
+        return "redirect:/approveClients"; // Redirect back to the approval page
     }
 
+    // POST method to reject a client
     @PostMapping("/rejectClient")
-    public String rejectClient(@RequestParam Long clientId, Model model) {
+    public String rejectClient(
+        @RequestParam Long clientId, // Client ID from the request
+        Model model // Model to pass messages to the view
+    ) {
+        // Delete the client from the database
         clientRepository.deleteById(clientId);
-        model.addAttribute("successMessage", "Client rejected successfully.");
-        return "redirect:/approveClients";
+
+        model.addAttribute("successMessage", "Client rejected successfully."); // Add success message
+        return "redirect:/approveClients"; // Redirect back to the approval page
     }
 
-    // Method to handle search
+    // GET method to handle client search functionality
     @GetMapping("/searchClients")
-    public String searchClients(@RequestParam String query, Model model) {
-        List<Client> searchResults = clientRepository.findByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCaseOrEmailContainingIgnoreCase(query, query, query);
-        model.addAttribute("pendingClients", searchResults);
-        return "approve_clients";
+    public String searchClients(
+        @RequestParam String query, // Search query provided by the user
+        Model model // Model to pass search results to the view
+    ) {
+        // Search for clients based on first name, last name, or email
+        List<Client> searchResults = clientRepository
+            .findByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCaseOrEmailContainingIgnoreCase(query, query, query);
+
+        model.addAttribute("pendingClients", searchResults); // Add search results to the model
+        return "approve_clients"; 
     }
 }
