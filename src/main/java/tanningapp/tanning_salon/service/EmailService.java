@@ -16,6 +16,11 @@ public class EmailService {
     @Value("${sendgrid.api-key}") // Injects the SendGrid API key from application properties.
     private String sendgridApiKey;
 
+    // // Setter for sendgridApiKey (useful for testing purposes)
+    // public void setSendgridApiKey(String sendgridApiKey) {
+    //     this.sendgridApiKey = sendgridApiKey;
+    // }
+
     // Sends an approval email to the specified recipient.
     public void sendApprovalEmail(String recipientEmail, String clientName) {
         // Constructs the email payload in JSON format.
