@@ -1,1 +1,2 @@
-web: mvn clean install && mvn spring-boot:run
+web: java -Dserver.port=$PORT -jar target/*.jar
+
